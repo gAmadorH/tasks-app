@@ -30,7 +30,7 @@ myRoutes(app, sequelize)
 sequelize.authenticate().then(() => {
   console.log('DATABASE: connected')
 
-  return sequelize.sync({ force: true })
+  return sequelize.sync({ })
 }).then(() => {
   console.log('DATABASE: force')
 }).catch(err => {

@@ -40,8 +40,8 @@ module.exports = (app, sequelize) => {
 
   router.delete('/tasks/:id', authenticate, controller.destroy)
 
-  router.delete('/arry', authenticate, (req, res) => {
-    const { myArry, element } = req.body.array
+  router.post('/array', authenticate, (req, res) => {
+    const { myArry, element } = req.body
 
     let index = myArry.indexOf(element) 
 
@@ -49,7 +49,7 @@ module.exports = (app, sequelize) => {
       index = myArry.length
     }
 
-    res.send(index)
+    res.send({ index })
   })
 
   app.use('/api/v1', router)
