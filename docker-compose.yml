@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  my-app:
+    build: .
+    container_name: backend
+    ports:
+      - 3001:3001
+    depends_on:
+      - my-db
+  my-db:
+    image: mysql
+    container_name: db
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_DATABASE=tasks-app-db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password

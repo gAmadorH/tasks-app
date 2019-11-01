@@ -1,0 +1,35 @@
+{
+  "name": "tasks-app",
+  "version": "1.0.0",
+  "description": "Tasks app",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "task",
+    "list",
+    "app",
+    "express",
+    "MySQL",
+    "Sequelize",
+    "JWT"
+  ],
+  "author": "gAmadorH <gamadorh93@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "bcryptjs": "^2.4.3",
+    "chalk": "^2.4.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-jwt": "^5.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.0.0",
+    "sequelize": "^5.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}
