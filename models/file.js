@@ -8,15 +8,15 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER
     },
-    name: {
+    originalname: {
       allowNull: false,
       type: DataTypes.STRING
     },
-    extension: {
+    mimetype: {
       allowNull: false,
       type: DataTypes.STRING
     },
-    route: {
+    path: {
       allowNull: false,
       type: DataTypes.STRING
     }

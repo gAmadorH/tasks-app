@@ -4,13 +4,19 @@ module.exports = (app, sequelize) => {
   const { User, Task, File } = sequelize.models
 
   const create = (req, res) => {
+    const { files } = req
     const { title, content, deadline } = req.body
     const { id: userId } = req.decoded.user
-  
+
     const task = Task.build({ title, content, deadline })
   
     task.setUser(userId, { save: false })
     task.save().then(task => {
+      files.map(async  file => {
+        file = await File.create(file)
+        await file.setTask(task)
+      })
+
       res.json({ task })
     })
   }
@@ -44,20 +50,29 @@ module.exports = (app, sequelize) => {
   
     Task.findByPk(id, {
       attributes: { exclude: ['userId'] },
-      include: {
+      include: [{
         model: User,
         attributes: { exclude: ['password'] }
-      }
+      }, {
+        model: File,
+        attributes: { exclude: ['TaskId', 'path', 'mimetype'] }
+      }]
     }).then(task => {
       res.json({ task })
     })
   }
   
   const update = (req, res, next) => {
+    const { files } = req
     const { title, content, status, deadline } = req.body
     const { id } = req.params
   
     Task.update({ title, content, status, deadline }, { where: { id } }).then(() => {
+      files.map(async  file => {
+        file = await File.create(file)
+        await file.setTaskId(id)
+      })
+
       req.method = 'GET'
       req.url = `/api/v1/tasks/${id}`
   
@@ -68,7 +83,13 @@ module.exports = (app, sequelize) => {
   const destroy = (req, res) => {
     const { id } = req.params
   
-    Task.findByPk(id, { attributes: ['id'] }).then(task => {
+    Task.findByPk(id, { attributes: ['id'] }).then(async task => {
+      const files = await task.getFiles()
+
+      files.map(async  file => {
+        await file.destroy()
+      })
+
       return task.destroy()
     }).then(() => {
       res.json({})

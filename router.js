@@ -30,13 +30,13 @@ module.exports = (app, sequelize) => {
 
   const router = express.Router()
 
-  router.post('/tasks', authenticate, upload.array('files', 4), controller.create)
+  router.post('/tasks', authenticate, upload.array('files'), controller.create)
 
   router.get('/tasks', authenticate, controller.list)
 
   router.get('/tasks/:id', authenticate, controller.get)
 
-  router.put('/tasks/:id', authenticate, controller.update)
+  router.put('/tasks/:id', authenticate, upload.array('files'), controller.update)
 
   router.delete('/tasks/:id', authenticate, controller.destroy)
 
