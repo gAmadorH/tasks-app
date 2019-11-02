@@ -3,6 +3,8 @@ tasks app
 
 This is a Tasks app API
 
+## app
+
 This API has:
 - An authentication system
 - A register system
@@ -10,9 +12,12 @@ This API has:
 - A health check endpoint
 - An endpoint of one exercise (finde item in array)
 
-## install and use
 
-# environment vars
+## technologies dependencies
+
+* Node (v10.15.0)
+
+## install and use
 
 * clone the repository
 ```
